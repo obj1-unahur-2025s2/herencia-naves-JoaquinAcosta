@@ -1,9 +1,15 @@
 class Naves {
   const velocidadMaxima = 100000
+  var combustible
   var velocidad
   var direccion
 
   method prepararViaje()
+
+  method accionAdicional() {
+    self.cargarCombustible(30000)
+    self.acelerar(5000)
+  }
 
   method acelerar(cuanto) {
     velocidad = (velocidad+cuanto).min(velocidadMaxima)
@@ -11,6 +17,14 @@ class Naves {
 
   method desacelerar(cuanto) {
     velocidad = (velocidad-cuanto).max(0)
+  }
+
+  method cargarCombustible(cantidad) {
+    combustible += cantidad
+  }
+
+  method descargarCombustible(cantidad) {
+    combustible -= cantidad
   }
 
   method irHaciaElSol() {
@@ -47,6 +61,7 @@ class NavesBaliza inherits Naves {
   override method prepararViaje() {
     self.cambiarColorDeBaliza("verde")
     self.ponerseParaleloAlSol()
+    self.accionAdicional()
   }
 }
 
@@ -75,6 +90,7 @@ class NavesDePasajeros inherits Naves {
     self.cargarComida(4 * pasajeros)
     self.cargarBebida(6 * pasajeros)
     self.acercarseUnPocoDelSol()
+    self.accionAdicional()
   }
 }
 
@@ -117,6 +133,7 @@ class NavesDeCombate inherits Naves {
     self.replegarMisiles()
     self.acelerar(15000)
     self.emitirMensaje("Saliendo en mision")
+    self.accionAdicional()
   }
 
 }
